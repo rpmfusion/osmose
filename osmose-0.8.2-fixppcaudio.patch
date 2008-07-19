@@ -1,0 +1,11 @@
+--- Osmose/OsmoseCore.cpp.orig	2007-06-08 08:38:34.000000000 +0100
++++ Osmose/OsmoseCore.cpp	2008-01-29 20:11:31.000000000 +0000
+@@ -598,7 +598,7 @@
+ void OsmoseCore::setupAudioFormat()
+ {
+     format.freq     = 22050;
+-    format.format   = AUDIO_S16LSB;
++    format.format   = AUDIO_S16MSB;
+     format.channels = 1;
+     format.samples  = SAMPLE_SIZE;
+     format.callback = sndCallback;
