@@ -2,7 +2,7 @@
 
 Name: osmose
 Version: 0.8.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 Group: Applications/Emulators
@@ -61,6 +61,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Jul 30 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 0.8.2-4
+- rebuild for buildsys cflags issue
+
 * Sat Feb 02 2008 Andrea Musuruane <musuruan@gmail.com> - 0.8.2-3
 - Added a patch by Ian Chapman to compile with gcc 4.3.
 - Timer timer patch has been updated by Ian to compile with gcc 4.3.
