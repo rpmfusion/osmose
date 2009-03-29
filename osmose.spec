@@ -2,7 +2,7 @@
 
 Name: osmose
 Version: 0.8.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 Group: Applications/Emulators
@@ -61,6 +61,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.8.2-5
+- rebuild for new F11 features
+
 * Wed Jul 30 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 0.8.2-4
 - rebuild for buildsys cflags issue
 
