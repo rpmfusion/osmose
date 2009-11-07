@@ -1,37 +1,38 @@
+%define pkgname Osmose
 %define pkgversion %(echo %version|sed s/\\\\\./-/g)
 
 Name: osmose
-Version: 0.8.2
-Release: 4%{?dist}
+Version: 0.9.1
+Release: 1%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 Group: Applications/Emulators
 License: GPLv2+
 URL: http://bcz.emu-france.com/%{name}.htm
-Source: http://bcz.emu-france.com/%{name}/%{name}-%{pkgversion}-src.zip
+Source: http://bcz.emu-france.com/%{name}/%{pkgname}-%{pkgversion}-src.zip
 # Andrea Musuruane
-Patch0: %{name}-0.8.2-usesystemlibraries.patch 
-# Ian Chapman
-Patch1: %{name}-0.8.2-newtimer.patch 
-Patch2: %{name}-0.8.2-fixppcaudio.patch
-Patch3: %{name}-0.8.2-gcc43fix.patch
+Patch0: %{name}-0.9.1-usesystemlibraries.patch 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: SDL-devel
 BuildRequires: minizip-devel
+BuildRequires: mesa-libGL-devel
 
 %description
 Osmose is another Sega Master System / Gamegear emulator.
 
 
 %prep
-%setup -q -n Osmose
+%setup -q -n %{pkgname}-%{pkgversion}
 %patch0 -p1
-%patch1 -p1
+
+# Make sure we don't use local zlib
+rm -rf zlib
+
+# Fix osmose on ppc
 %ifarch ppc ppc64
-%patch2 -p1
+sed -i 's/AUDIO_S16LSB/AUDIO_S16MSB/' OsmoseCore.cpp
 %endif
-%patch3 -p1
 
 # Fix end-of-line encoding
 sed -i 's/\r//' *.txt *.{cpp,h} cpu/*.{cpp,h}
@@ -61,6 +62,13 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Nov 07 2009 Andrea Musuruane <musuruan@gmail.com> - 0.9.1-1
+- New upstream release.
+- Removed no longer used patches.
+
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.8.2-5
+- rebuild for new F11 features
+
 * Wed Jul 30 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 0.8.2-4
 - rebuild for buildsys cflags issue
 
