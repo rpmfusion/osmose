@@ -2,7 +2,7 @@
 %define pkgversion %(echo %version|sed s/\\\\\./-/g)
 
 Name: osmose
-Version: 0.9.1
+Version: 0.9.2
 Release: 1%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
@@ -11,7 +11,7 @@ License: GPLv2+
 URL: http://bcz.emu-france.com/%{name}.htm
 Source: http://bcz.emu-france.com/%{name}/%{pkgname}-%{pkgversion}-src.zip
 # Andrea Musuruane
-Patch0: %{name}-0.9.1-usesystemlibraries.patch 
+Patch0: %{name}-0.9.2-usesystemlibraries.patch 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: SDL-devel
@@ -41,7 +41,7 @@ sed -i 's/\r//' *.txt *.{cpp,h} cpu/*.{cpp,h}
 chmod 644 cpu/*.{cpp,h}
 
 %build
-make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS"
+make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS -D__USE_UNIX98"
 
 
 %install
@@ -62,6 +62,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Dec 12 2009 Andrea Musuruane <musuruan@gmail.com> - 0.9.2-1
+- New upstream release.
+
 * Sat Nov 07 2009 Andrea Musuruane <musuruan@gmail.com> - 0.9.1-1
 - New upstream release.
 - Removed no longer used patches.
