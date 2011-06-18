@@ -1,0 +1,48 @@
+diff -durN Osmose-0-9-96-QT.orig/osmose/MemoryMapper.h Osmose-0-9-96-QT/osmose/MemoryMapper.h
+--- Osmose-0-9-96-QT.orig/osmose/MemoryMapper.h	2010-12-12 11:47:18.000000000 +0100
++++ Osmose-0-9-96-QT/osmose/MemoryMapper.h	2011-06-05 13:04:03.568036347 +0200
+@@ -18,7 +18,7 @@
+ #include <fstream>
+ #include <sstream>
+ #include <iomanip>
+-#include "unzip/unzip.h"
++#include <minizip/unzip.h>
+ #include "Options.h"
+ #include "Definitions.h"
+ #include "DebugEventThrower.h"
+diff -durN Osmose-0-9-96-QT.orig/Osmose-0-9-96-QT.pro Osmose-0-9-96-QT/Osmose-0-9-96-QT.pro
+--- Osmose-0-9-96-QT.orig/Osmose-0-9-96-QT.pro	2011-04-30 07:23:22.000000000 +0200
++++ Osmose-0-9-96-QT/Osmose-0-9-96-QT.pro	2011-06-05 13:04:16.740123993 +0200
+@@ -4,9 +4,9 @@
+ 
+ TEMPLATE = app
+ TARGET = 
+-DEPENDPATH += . cpu osmose unzip
+-INCLUDEPATH += . cpu osmose unzip
+-LIBS += -lz -lasound
++DEPENDPATH += . cpu osmose
++INCLUDEPATH += . cpu osmose
++LIBS += -lz -lasound -lminizip
+ QT+=opengl
+ 
+ # Input
+@@ -44,10 +44,7 @@
+            osmose/VDP.h \
+            osmose/VDP_GG.h \
+            osmose/Version.h \
+-           osmose/WaveWriter.h \
+-           unzip/crypt.h \
+-           unzip/ioapi.h \
+-           unzip/unzip.h
++           osmose/WaveWriter.h
+ FORMS += Configuration.ui LogWindow.ui
+ SOURCES += EmulationThread.cpp \
+            Joystick.cpp \
+@@ -83,6 +80,4 @@
+            osmose/SoundThread.cpp \
+            osmose/VDP.cpp \
+            osmose/VDP_GG.cpp \
+-           osmose/WaveWriter.cpp \
+-           unzip/ioapi.c \
+-           unzip/unzip.c
++           osmose/WaveWriter.cpp

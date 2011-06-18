@@ -2,52 +2,59 @@
 %define pkgversion %(echo %version|sed s/\\\\\./-/g)
 
 Name: osmose
-Version: 0.9.2
+Version: 0.9.96
 Release: 1%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 Group: Applications/Emulators
-License: GPLv2+
-URL: http://bcz.emu-france.com/%{name}.htm
-Source: http://bcz.emu-france.com/%{name}/%{pkgname}-%{pkgversion}-src.zip
-# Andrea Musuruane
-Patch0: %{name}-0.9.2-usesystemlibraries.patch 
+License: GPLv3+
+URL: http://bcz.asterope.fr/
+Source0: http://bcz.asterope.fr/%{name}/%{pkgname}-%{pkgversion}-QT.zip
+Source1: %{name}.desktop
+# Use system minizip
+Patch0: %{name}-0.9.96-usesystemlibraries.patch 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires: SDL-devel
+BuildRequires: qt4-devel
+BuildRequires: alsa-lib-devel
 BuildRequires: minizip-devel
-BuildRequires: mesa-libGL-devel
+BuildRequires: desktop-file-utils
 
 %description
 Osmose is another Sega Master System / Gamegear emulator.
 
 
 %prep
-%setup -q -n %{pkgname}-%{pkgversion}
+%setup -q -n %{pkgname}-%{pkgversion}-QT
 %patch0 -p1
 
-# Make sure we don't use local zlib
-rm -rf zlib
-
-# Fix osmose on ppc
-%ifarch ppc ppc64
-sed -i 's/AUDIO_S16LSB/AUDIO_S16MSB/' OsmoseCore.cpp
-%endif
-
 # Fix end-of-line encoding
-sed -i 's/\r//' *.txt *.{cpp,h} cpu/*.{cpp,h}
+sed -i 's/\r//' *.{cpp,h} cpu/*.{cpp,h}
 
 # Fix spurious executable permissions
-chmod 644 cpu/*.{cpp,h}
+chmod 644 *.{cpp,h,txt} cpu/*.{cpp,h} osmose/*.{cpp,h} unzip/*.{c,h}
+
+# Make sure we don't use local minizip
+rm -rf unzip
+
 
 %build
-make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS -D__USE_UNIX98"
+export QMAKE_CFLAGS="%{optflags}"
+export QMAKE_CXXFLAGS="%{optflags}"
+
+qmake-qt4
+make %{?_smp_mflags}
 
 
 %install
 rm -rf %{buildroot}
 install -d -m 0755 %{buildroot}%{_bindir}
-install -m 755 %{name} %{buildroot}%{_bindir}/%{name}
+install -m 755 %{pkgname}-%{pkgversion}-QT %{buildroot}%{_bindir}/%{name}
+
+# Install desktop file
+desktop-file-install \
+  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+  %{SOURCE1}
 
 
 %clean
@@ -57,11 +64,17 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %{_bindir}/%{name}
-%doc changes.txt license.txt readme.txt
-
+%{_datadir}/applications/%{name}.desktop
+%doc License.txt Readme.txt TODO.txt
 
 
 %changelog
+* Wed Jun 08 2011 Andrea Musuruane <musuruan@gmail.com> - 0.9.96-1
+- New upstream release.
+- New upstream URL and Source.
+- Added desktop file to support new QT based GUI.
+- Upstream changed license to GPLv3+.
+
 * Sat Dec 12 2009 Andrea Musuruane <musuruan@gmail.com> - 0.9.2-1
 - New upstream release.
 
