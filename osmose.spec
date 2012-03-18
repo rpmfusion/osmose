@@ -3,7 +3,7 @@
 
 Name: osmose
 Version: 0.9.96
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 Group: Applications/Emulators
@@ -13,6 +13,8 @@ Source0: http://bcz.asterope.fr/%{name}/%{pkgname}-%{pkgversion}-QT.zip
 Source1: %{name}.desktop
 # Use system minizip
 Patch0: %{name}-0.9.96-usesystemlibraries.patch 
+# Fix building with gcc 4.7 
+Patch1: %{name}-0.9.96-gcc47.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: qt4-devel
@@ -27,6 +29,7 @@ Osmose is another Sega Master System / Gamegear emulator.
 %prep
 %setup -q -n %{pkgname}-%{pkgversion}-QT
 %patch0 -p1
+%patch1 -p1
 
 # Fix end-of-line encoding
 sed -i 's/\r//' *.{cpp,h} cpu/*.{cpp,h}
@@ -69,6 +72,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Mar 18 2012 Andrea Musuruane <musuruan@gmail.com> - 0.9.96-4
+- Fixed FTBFS for F17+
+
 * Fri Mar 02 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.9.96-3
 - Rebuilt for c++ ABI breakage
 
