@@ -1,0 +1,11 @@
+diff -durN Osmose-0-9-96-QT/Joystick.h Osmose-0-9-96-QT-fixed/Joystick.h
+--- Osmose-0-9-96-QT/Joystick.h	2011-06-06 09:06:20.000000000 +0200
++++ Osmose-0-9-96-QT-fixed/Joystick.h	2012-03-18 16:21:32.209524288 +0100
+@@ -35,6 +35,7 @@
+ #ifndef JOYSTICK_H
+ #define JOYSTICK_H
+ 
++#include <unistd.h>
+ #include <iostream>
+ #include <fcntl.h>
+ #include <errno.h>
