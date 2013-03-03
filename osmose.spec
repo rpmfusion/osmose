@@ -3,7 +3,7 @@
 
 Name: osmose
 Version: 0.9.96
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 Group: Applications/Emulators
@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Mar 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.9.96-5
+- Mass rebuilt for Fedora 19 Features
+
 * Sun Mar 18 2012 Andrea Musuruane <musuruan@gmail.com> - 0.9.96-4
 - Fixed FTBFS for F17+
 
