@@ -3,7 +3,7 @@
 
 Name: osmose
 Version: 0.9.96
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 Group: Applications/Emulators
@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 0.9.96-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Sun Mar 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.9.96-5
 - Mass rebuilt for Fedora 19 Features
 
