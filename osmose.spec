@@ -1,9 +1,10 @@
-%define pkgname Osmose
+%global	debug_package %{nil}
+%global pkgname Osmose
 %define pkgversion %(echo %version|sed s/\\\\\./-/g)
 
 Name: osmose
 Version: 0.9.96
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 Group: Applications/Emulators
@@ -15,7 +16,6 @@ Source1: %{name}.desktop
 Patch0: %{name}-0.9.96-usesystemlibraries.patch 
 # Fix building with gcc 4.7 
 Patch1: %{name}-0.9.96-gcc47.patch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: qt4-devel
 BuildRequires: alsa-lib-devel
@@ -42,11 +42,8 @@ rm -rf unzip
 
 
 %build
-export QMAKE_CFLAGS="%{optflags}"
-export QMAKE_CXXFLAGS="%{optflags}"
-
-qmake-qt4
-make %{?_smp_mflags}
+%qmake_qt4
+%make_build
 
 
 %install
@@ -56,22 +53,22 @@ install -m 755 %{pkgname}-%{pkgversion}-QT %{buildroot}%{_bindir}/%{name}
 
 # Install desktop file
 desktop-file-install \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+  --dir %{buildroot}%{_datadir}/applications \
   %{SOURCE1}
 
 
-%clean
-rm -rf %{buildroot}
-
-
 %files
-%defattr(-,root,root,-)
+%doc Readme.txt TODO.txt
+%license License.txt
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%doc License.txt Readme.txt TODO.txt
 
 
 %changelog
+* Fri Sep 01 2017 Leigh Scott <leigh123linux@googlemail.com> - 0.9.96-9
+- Disable debuginfo
+- Update spec file
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 0.9.96-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
