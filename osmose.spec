@@ -1,13 +1,11 @@
-%global	debug_package %{nil}
-%global pkgname Osmose
+%define pkgname Osmose
 %define pkgversion %(echo %version|sed s/\\\\\./-/g)
 
 Name: osmose
 Version: 0.9.96
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
-Group: Applications/Emulators
 License: GPLv3+
 URL: http://bcz.asterope.fr/
 Source0: http://bcz.asterope.fr/%{name}/%{pkgname}-%{pkgversion}-QT.zip
@@ -23,7 +21,14 @@ BuildRequires: minizip-devel
 BuildRequires: desktop-file-utils
 
 %description
-Osmose is another Sega Master System / Gamegear emulator.
+A multi-machine emulator for platforms of Sega consoles (Master System and 
+Game Gear) and compatible for all games.
+
+Simulates hardware extremely accurately which ensures that these classic 
+games are represented exactly like they were on the real systems.
+
+Osmose has a clean graphical user interface based on QT and a simplified 
+setup process, and supports ROM archives in the SMS and GG formats.
 
 
 %prep
@@ -47,7 +52,6 @@ rm -rf unzip
 
 
 %install
-rm -rf %{buildroot}
 install -d -m 0755 %{buildroot}%{_bindir}
 install -m 755 %{pkgname}-%{pkgversion}-QT %{buildroot}%{_bindir}/%{name}
 
@@ -65,6 +69,12 @@ desktop-file-install \
 
 
 %changelog
+* Sun Sep 03 2017 Andrea Musuruane <musuruan@gmail.com> - 0.9.96-10
+- Enabled debuginfo
+- Dropped obsolete Group
+- Dropped cleaning at the beginning of %%install
+- Updated description
+
 * Fri Sep 01 2017 Leigh Scott <leigh123linux@googlemail.com> - 0.9.96-9
 - Disable debuginfo
 - Update spec file
