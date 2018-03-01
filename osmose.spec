@@ -3,7 +3,7 @@
 
 Name: osmose
 Version: 0.9.96
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 License: GPLv3+
@@ -69,6 +69,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 0.9.96-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Sun Sep 03 2017 Andrea Musuruane <musuruan@gmail.com> - 0.9.96-10
 - Enabled debuginfo
 - Dropped obsolete Group
