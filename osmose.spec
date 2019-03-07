@@ -3,7 +3,7 @@
 
 Name: osmose
 Version: 0.9.96
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 License: GPLv3+
@@ -15,9 +15,14 @@ Patch0: %{name}-0.9.96-usesystemlibraries.patch
 # Fix building with gcc 4.7 
 Patch1: %{name}-0.9.96-gcc47.patch
 
+BuildRequires: gcc-c++
 BuildRequires: qt4-devel
 BuildRequires: alsa-lib-devel
+%if 0%{?fedora} >= 30
+BuildRequires: minizip-compat-devel
+%else
 BuildRequires: minizip-devel
+%endif
 BuildRequires: desktop-file-utils
 
 %description
@@ -69,6 +74,10 @@ desktop-file-install \
 
 
 %changelog
+* Thu Mar 07 2019 Andrea Musuruane <musuruan@gmail.com> - 0.9.96-14
+- Added gcc dependency
+- Updated BR to minizip-compat-devel for F30+
+
 * Mon Mar 04 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.9.96-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
