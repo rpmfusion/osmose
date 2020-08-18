@@ -3,7 +3,7 @@
 
 Name: osmose
 Version: 0.9.96
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: A Sega Master System / Game Gear emulator
 
 License: GPLv3+
@@ -74,6 +74,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Aug 18 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.9.96-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.9.96-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
