@@ -38,8 +38,8 @@ setup process, and supports ROM archives in the SMS and GG formats.
 
 %prep
 %setup -q -n %{pkgname}-%{pkgversion}-QT
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # Fix end-of-line encoding
 sed -i 's/\r//' *.{cpp,h} cpu/*.{cpp,h}
